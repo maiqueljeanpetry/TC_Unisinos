@@ -1,0 +1,152 @@
+﻿<Window x:Class="Microsoft.Samples.Kinect.SkeletonBasics.Series"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Microsoft.Samples.Kinect.SkeletonBasics"
+        mc:Ignorable="d"
+        Title="Séries Tratamento" Height="608.675" Width="581" WindowStartupLocation="CenterScreen">
+    <Grid Margin="0,10,2,-3">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="92*"/>
+            <ColumnDefinition Width="183*"/>
+            <ColumnDefinition Width="147*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FF9E9C9E" Offset="0.246"/>
+                <GradientStop Color="#FFF0F0F0" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="2" Margin="0,71,0,0" Stroke="Black" VerticalAlignment="Top" Width="525" Grid.ColumnSpan="3"/>
+        <Label Content="ID" HorizontalAlignment="Left" Margin="39,83,0,0" VerticalAlignment="Top" FontFamily="Arial" FontWeight="Bold" Width="24" Height="24"/>
+        <TextBox x:Name="txtIDSerie" HorizontalAlignment="Left" Height="23" Margin="69,84,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="53" FontWeight="Bold" Background="#FFCFCFCF" BorderThickness="1" BorderBrush="Black" FontFamily="Arial" Grid.Column="1">
+            <TextBox.Effect>
+                <BlurEffect Radius="1" RenderingBias="Quality"/>
+            </TextBox.Effect>
+        </TextBox>
+        <Label Content="Nível" HorizontalAlignment="Left" Margin="39,203,0,0" VerticalAlignment="Top" FontFamily="Arial" FontWeight="Bold" Width="54" Height="24"/>
+        <Label Content="Tipo Movimento" HorizontalAlignment="Left" Margin="39,112,0,0" VerticalAlignment="Top" FontFamily="Arial" FontWeight="Bold" Width="103" Height="24" Grid.ColumnSpan="2"/>
+        <ComboBox x:Name="txtTipo_mov" HorizontalAlignment="Left" Margin="69,112,0,0" VerticalAlignment="Top" Width="130" SelectedIndex="0" IsReadOnly="True" FontFamily="Arial" Height="23" Grid.Column="1">
+            <ComboBox.Background>
+                <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                    <GradientStop Color="#FFF3F3F3" Offset="0"/>
+                    <GradientStop Color="#FFEBEBEB" Offset="0.5"/>
+                    <GradientStop Color="#FFDDDDDD" Offset="0.5"/>
+                    <GradientStop Color="#FFCFCFCF" Offset="1"/>
+                </LinearGradientBrush>
+            </ComboBox.Background>
+            <ComboBoxItem x:Name="tipo1" Content="Abdução"/>
+            <ComboBoxItem x:Name="tipo2" Content="Adução"/>
+        </ComboBox>
+        <Label Content="Articulação" Margin="39,140,0,0" VerticalAlignment="Top" FontFamily="Arial" FontWeight="Bold" HorizontalAlignment="Left" Width="103" Height="27" Grid.ColumnSpan="2"/>
+        <CheckBox x:Name="checkNivelLib" Content="Nível Liberado" HorizontalAlignment="Left" Margin="39,299,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" FontFamily="Arial" FontWeight="Bold"/>
+
+        <Label Content="Posição" Margin="39,171,0,0" VerticalAlignment="Top" FontFamily="Arial" FontWeight="Bold" HorizontalAlignment="Left" Width="103" Height="27" Grid.ColumnSpan="2"/>
+        <Label Content="º" Margin="123,230,0,0" VerticalAlignment="Top" FontFamily="Arial" FontWeight="Bold" HorizontalAlignment="Left" Width="14" Height="27" RenderTransformOrigin="0.488,1.611" Grid.Column="1"/>
+        <TextBox x:Name="txtparam" HorizontalAlignment="Left" Height="23" Margin="21,21,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="53" FontWeight="Bold" Background="#FFCFCFCF" BorderThickness="1" BorderBrush="Black" FontFamily="Arial" Grid.Column="1" IsEnabled="False">
+            <TextBox.Effect>
+                <BlurEffect Radius="1" RenderingBias="Quality"/>
+            </TextBox.Effect>
+        </TextBox>
+        <Label Content="ID Tratamento" HorizontalAlignment="Left" Margin="39,21,0,0" VerticalAlignment="Top" FontFamily="Arial" FontWeight="Bold" Width="91" Height="24" RenderTransformOrigin="0.083,-2.417" Grid.ColumnSpan="2"/>
+        <Label Content="Nome Paciente" HorizontalAlignment="Left" Margin="95,21,0,0" VerticalAlignment="Top" FontFamily="Arial" FontWeight="Bold" Width="104" Height="24" RenderTransformOrigin="0.083,-2.417" Grid.Column="1"/>
+        <TextBox x:Name="txtparam_nome" HorizontalAlignment="Left" Height="23" Margin="199,22,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="192" FontWeight="Bold" Background="#FFCFCFCF" BorderThickness="1" BorderBrush="Black" FontFamily="Arial" Grid.Column="1" Grid.ColumnSpan="2" IsEnabled="False">
+            <TextBox.Effect>
+                <BlurEffect Radius="1" RenderingBias="Quality"/>
+            </TextBox.Effect>
+        </TextBox>
+        <ComboBox x:Name="txtNivel" HorizontalAlignment="Left" Margin="69,203,0,0" VerticalAlignment="Top" Width="53" SelectedIndex="0" IsReadOnly="True" FontFamily="Arial" Height="23" Grid.Column="1">
+            <ComboBox.Background>
+                <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                    <GradientStop Color="#FFF3F3F3" Offset="0"/>
+                    <GradientStop Color="#FFEBEBEB" Offset="0.5"/>
+                    <GradientStop Color="#FFDDDDDD" Offset="0.5"/>
+                    <GradientStop Color="#FFCFCFCF" Offset="1"/>
+                </LinearGradientBrush>
+            </ComboBox.Background>
+            <ComboBoxItem x:Name="tipo9" Content="1"/>
+            <ComboBoxItem x:Name="tipo10" Content="2"/>
+            <ComboBoxItem x:Name="tipo11" Content="3"/>
+            <ComboBoxItem x:Name="tipo12" Content="4"/>
+            <ComboBoxItem x:Name="tipo13" Content="5"/>
+            <ComboBoxItem x:Name="tipo14" Content="6"/>
+            <ComboBoxItem x:Name="tipo15" Content="7"/>
+            <ComboBoxItem x:Name="tipo16" Content="8"/>
+            <ComboBoxItem x:Name="tipo17" Content="9"/>
+            <ComboBoxItem x:Name="tipo18" Content="10"/>
+        </ComboBox>
+        <Label Content="Ângulo a atingir" HorizontalAlignment="Left" Margin="39,232,0,0" VerticalAlignment="Top" FontFamily="Arial" FontWeight="Bold" Width="103" Height="24" Grid.ColumnSpan="2"/>
+        <Label Content="Num de repetições" HorizontalAlignment="Left" Margin="39,261,0,0" VerticalAlignment="Top" FontFamily="Arial" FontWeight="Bold" Width="124" Height="24" Grid.ColumnSpan="2"/>
+        <TextBox x:Name="txtRepeticoes" HorizontalAlignment="Left" Height="23" Margin="69,262,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="53" FontWeight="Bold" Background="#FFCFCFCF" BorderThickness="1" BorderBrush="Black" FontFamily="Arial" Grid.Column="1">
+            <TextBox.Effect>
+                <BlurEffect Radius="1" RenderingBias="Quality"/>
+            </TextBox.Effect>
+        </TextBox>
+        <ComboBox x:Name="txtPosicao" HorizontalAlignment="Left" Margin="69,171,0,0" VerticalAlignment="Top" Width="130" SelectedIndex="0" IsReadOnly="True" FontFamily="Arial" Height="23" Grid.Column="1">
+            <ComboBox.Background>
+                <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                    <GradientStop Color="#FFF3F3F3" Offset="0"/>
+                    <GradientStop Color="#FFEBEBEB" Offset="0.5"/>
+                    <GradientStop Color="#FFDDDDDD" Offset="0.5"/>
+                    <GradientStop Color="#FFCFCFCF" Offset="1"/>
+                </LinearGradientBrush>
+            </ComboBox.Background>
+            <ComboBoxItem x:Name="tipo7" Content="Esquerda"/>
+            <ComboBoxItem x:Name="tipo8" Content="Direita"/>
+        </ComboBox>
+        <CheckBox x:Name="checkNivel_Concluido" Content="Nível Concluído" HorizontalAlignment="Left" Margin="39,326,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" FontFamily="Arial" FontWeight="Bold"/>
+        <DataGrid x:Name="dgDados" Grid.ColumnSpan="3" HorizontalAlignment="Left" Height="162" Margin="10,392,0,0" VerticalAlignment="Top" Width="544" MouseDoubleClick="DgDados_MouseDoubleClick"/>
+        <Button x:Name="btInserir" Content="Inserir" HorizontalAlignment="Left" Margin="41,355,0,0" VerticalAlignment="Top" Width="75" Click="BtIncluir" RenderTransformOrigin="3.162,3.576" Grid.ColumnSpan="2"/>
+        <Button x:Name="btEditar" Content="Editar" HorizontalAlignment="Left" Margin="7,355,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="-0.77,0.749" IsEnabled="False" Click="BtEditar_Click" Grid.Column="1"/>
+        <Button x:Name="btExcluir" Content="Excluir" Grid.Column="1" HorizontalAlignment="Left" Margin="166,355,0,0" VerticalAlignment="Top" Width="75" IsEnabled="False" Click="BtExcluir_Click" Grid.ColumnSpan="2"/>
+        <Button x:Name="btSalvar" Content="Salvar" HorizontalAlignment="Left" Margin="87,355,0,0" VerticalAlignment="Top" Width="74" Click="BtSalvar" IsEnabled="False" Grid.Column="1"/>
+        <Button x:Name="btPesquisar" Content="Pesquisar" Grid.Column="2" HorizontalAlignment="Left" Margin="1,355,0,0" VerticalAlignment="Top" Width="75" Click="BtPesquisar_Click"/>
+        <Button x:Name="btCancelar" Content="Cancelar" Grid.Column="2" HorizontalAlignment="Left" Margin="82,355,0,0" VerticalAlignment="Top" Width="75" IsEnabled="False" Click="BtCancelar_Click"/>
+        <TextBox x:Name="txtart" HorizontalAlignment="Left" Height="23" Margin="276,140,-133,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="53" FontWeight="Bold" Background="#FFCFCFCF" BorderThickness="1" BorderBrush="Black" FontFamily="Arial" Grid.Column="2" RenderTransformOrigin="5.717,0.043">
+            <TextBox.Effect>
+                <BlurEffect Radius="1" RenderingBias="Quality"/>
+            </TextBox.Effect>
+        </TextBox>
+        <TextBox x:Name="txtpos" HorizontalAlignment="Left" Height="23" Margin="276,175,-133,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="53" FontWeight="Bold" Background="#FFCFCFCF" BorderThickness="1" BorderBrush="Black" FontFamily="Arial" Grid.Column="2" RenderTransformOrigin="0.472,2.087">
+            <TextBox.Effect>
+                <BlurEffect Radius="1" RenderingBias="Quality"/>
+            </TextBox.Effect>
+        </TextBox>
+        <ComboBox x:Name="txtAngulo" HorizontalAlignment="Left" Margin="69,232,0,0" VerticalAlignment="Top" Width="54" SelectedIndex="0" IsReadOnly="True" FontFamily="Arial" Height="23" Grid.Column="1" RenderTransformOrigin="-0.123,1.565">
+            <ComboBox.Background>
+                <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                    <GradientStop Color="#FFF3F3F3" Offset="0"/>
+                    <GradientStop Color="#FFEBEBEB" Offset="0.5"/>
+                    <GradientStop Color="#FFDDDDDD" Offset="0.5"/>
+                    <GradientStop Color="#FFCFCFCF" Offset="1"/>
+                </LinearGradientBrush>
+            </ComboBox.Background>
+            <ComboBoxItem x:Name="tipo5" Content="15"/>
+            <ComboBoxItem x:Name="tipo6" Content="30"/>
+            <ComboBoxItem x:Name="tipo20" Content="45"/>
+            <ComboBoxItem x:Name="tipo21" Content="60"/>
+            <ComboBoxItem x:Name="tipo22" Content="75"/>
+            <ComboBoxItem x:Name="tipo23" Content="90"/>
+            <ComboBoxItem x:Name="tipo24" Content="105"/>
+            <ComboBoxItem x:Name="tipo25" Content="120"/>
+            <ComboBoxItem x:Name="tipo26" Content="135"/>
+            <ComboBoxItem x:Name="tipo27" Content="150"/>
+            <ComboBoxItem x:Name="tipo28" Content="165"/>
+            <ComboBoxItem x:Name="tipo29" Content="180"/>
+        </ComboBox>
+        <ComboBox x:Name="txtArticulacao" HorizontalAlignment="Left" Margin="69,142,0,0" VerticalAlignment="Top" Width="130" SelectedIndex="0" IsReadOnly="True" FontFamily="Arial" Height="23" Grid.Column="1">
+            <ComboBox.Background>
+                <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                    <GradientStop Color="#FFF3F3F3" Offset="0"/>
+                    <GradientStop Color="#FFEBEBEB" Offset="0.5"/>
+                    <GradientStop Color="#FFDDDDDD" Offset="0.5"/>
+                    <GradientStop Color="#FFCFCFCF" Offset="1"/>
+                </LinearGradientBrush>
+            </ComboBox.Background>
+            <ComboBoxItem x:Name="tipo19" Content="Ombro"/>
+            <ComboBoxItem x:Name="tipo30" Content="Mão"/>
+        </ComboBox>
+
+    </Grid>
+</Window>

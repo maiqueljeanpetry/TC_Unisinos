@@ -1,0 +1,355 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="FisioModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="TBSerie">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_TR" Type="int" Nullable="false" />
+          <Property Name="Tipo_movimento" Type="nchar" MaxLength="10" />
+          <Property Name="Articulacao" Type="nchar" MaxLength="10" />
+          <Property Name="Posicao" Type="nchar" MaxLength="10" />
+          <Property Name="Nivel" Type="int" />
+          <Property Name="Angulo" Type="int" />
+          <Property Name="Qt_acertos" Type="int" />
+          <Property Name="Nivel_liberado" Type="bit" />
+          <Property Name="Nivel_concluido" Type="bit" />
+          <Property Name="Qt_erros" Type="int" />
+          <Property Name="Score_nivel" Type="int" />
+          <Property Name="Qt_rep_nivel" Type="int" />
+          <Property Name="Observacao" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="TBTratamento">
+          <Key>
+            <PropertyRef Name="ID_TR" />
+          </Key>
+          <Property Name="ID_TR" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_User_PC" Type="int" Nullable="false" />
+          <Property Name="Patologia" Type="varchar" MaxLength="55" />
+          <Property Name="Objetivo" Type="varchar" MaxLength="55" />
+          <Property Name="Observacao" Type="varchar" MaxLength="255" />
+          <Property Name="ID_User_FS" Type="int" Nullable="false" />
+          <Property Name="Ativo" Type="bit" />
+        </EntityType>
+        <EntityType Name="TBUser">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nome" Type="varchar" MaxLength="50" />
+          <Property Name="Email" Type="varchar" MaxLength="50" />
+          <Property Name="Fone" Type="varchar" MaxLength="15" />
+          <Property Name="Login" Type="varchar" MaxLength="10" />
+          <Property Name="Senha" Type="varchar" MaxLength="10" />
+          <Property Name="Ativo" Type="bit" />
+          <Property Name="Tipo" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_TBSerie_To_TBTRatamento">
+          <End Role="TBTratamento" Type="Self.TBTratamento" Multiplicity="1" />
+          <End Role="TBSerie" Type="Self.TBSerie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBTratamento">
+              <PropertyRef Name="ID_TR" />
+            </Principal>
+            <Dependent Role="TBSerie">
+              <PropertyRef Name="ID_TR" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBTratamento_ToTable">
+          <End Role="TBUser" Type="Self.TBUser" Multiplicity="1" />
+          <End Role="TBTratamento" Type="Self.TBTratamento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBUser">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBTratamento">
+              <PropertyRef Name="ID_User_PC" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBTratamento_ToTable_1">
+          <End Role="TBUser" Type="Self.TBUser" Multiplicity="1" />
+          <End Role="TBTratamento" Type="Self.TBTratamento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBUser">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBTratamento">
+              <PropertyRef Name="ID_User_FS" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBTratamento_ToTable1">
+          <End Role="TBUser" Type="Self.TBUser" Multiplicity="1" />
+          <End Role="TBTratamento" Type="Self.TBTratamento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBUser">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBTratamento">
+              <PropertyRef Name="ID_User_FS" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="FisioModelStoreContainer">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBSerie" EntityType="Self.TBSerie" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBTratamento" EntityType="Self.TBTratamento" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBUser" EntityType="Self.TBUser" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_TBSerie_To_TBTRatamento" Association="Self.FK_TBSerie_To_TBTRatamento">
+            <End Role="TBTratamento" EntitySet="TBTratamento" />
+            <End Role="TBSerie" EntitySet="TBSerie" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBTratamento_ToTable" Association="Self.FK_TBTratamento_ToTable">
+            <End Role="TBUser" EntitySet="TBUser" />
+            <End Role="TBTratamento" EntitySet="TBTratamento" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBTratamento_ToTable_1" Association="Self.FK_TBTratamento_ToTable_1">
+            <End Role="TBUser" EntitySet="TBUser" />
+            <End Role="TBTratamento" EntitySet="TBTratamento" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBTratamento_ToTable1" Association="Self.FK_TBTratamento_ToTable1">
+            <End Role="TBUser" EntitySet="TBUser" />
+            <End Role="TBTratamento" EntitySet="TBTratamento" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="FisioModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="TBSerie">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_TR" Type="Int32" Nullable="false" />
+          <Property Name="Tipo_movimento" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Articulacao" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Posicao" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Nivel" Type="Int32" />
+          <Property Name="Angulo" Type="Int32" />
+          <Property Name="Qt_acertos" Type="Int32" />
+          <Property Name="Nivel_liberado" Type="Boolean" />
+          <Property Name="Nivel_concluido" Type="Boolean" />
+          <Property Name="Qt_erros" Type="Int32" />
+          <Property Name="Score_nivel" Type="Int32" />
+          <Property Name="Qt_rep_nivel" Type="Int32" />
+          <Property Name="Observacao" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TBTratamento" Relationship="Self.FK_TBSerie_To_TBTRatamento" FromRole="TBSerie" ToRole="TBTratamento" />
+        </EntityType>
+        <EntityType Name="TBTratamento">
+          <Key>
+            <PropertyRef Name="ID_TR" />
+          </Key>
+          <Property Name="ID_TR" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_User_PC" Type="Int32" Nullable="false" />
+          <Property Name="Patologia" Type="String" MaxLength="55" FixedLength="false" Unicode="false" />
+          <Property Name="Objetivo" Type="String" MaxLength="55" FixedLength="false" Unicode="false" />
+          <Property Name="Observacao" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ID_User_FS" Type="Int32" Nullable="false" />
+          <Property Name="Ativo" Type="Boolean" />
+          <NavigationProperty Name="TBSerie" Relationship="Self.FK_TBSerie_To_TBTRatamento" FromRole="TBTratamento" ToRole="TBSerie" />
+          <NavigationProperty Name="TBUser" Relationship="Self.FK_TBTratamento_ToTable" FromRole="TBTratamento" ToRole="TBUser" />
+          <NavigationProperty Name="TBUser1" Relationship="Self.FK_TBTratamento_ToTable_1" FromRole="TBTratamento" ToRole="TBUser" />
+          <NavigationProperty Name="TBUser2" Relationship="Self.FK_TBTratamento_ToTable1" FromRole="TBTratamento" ToRole="TBUser" />
+        </EntityType>
+        <EntityType Name="TBUser">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nome" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Fone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Login" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Senha" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Ativo" Type="Boolean" />
+          <Property Name="Tipo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TBTratamento" Relationship="Self.FK_TBTratamento_ToTable" FromRole="TBUser" ToRole="TBTratamento" />
+          <NavigationProperty Name="TBTratamento1" Relationship="Self.FK_TBTratamento_ToTable_1" FromRole="TBUser" ToRole="TBTratamento" />
+          <NavigationProperty Name="TBTratamento2" Relationship="Self.FK_TBTratamento_ToTable1" FromRole="TBUser" ToRole="TBTratamento" />
+        </EntityType>
+        <Association Name="FK_TBSerie_To_TBTRatamento">
+          <End Role="TBTratamento" Type="Self.TBTratamento" Multiplicity="1" />
+          <End Role="TBSerie" Type="Self.TBSerie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBTratamento">
+              <PropertyRef Name="ID_TR" />
+            </Principal>
+            <Dependent Role="TBSerie">
+              <PropertyRef Name="ID_TR" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBTratamento_ToTable">
+          <End Role="TBUser" Type="Self.TBUser" Multiplicity="1" />
+          <End Role="TBTratamento" Type="Self.TBTratamento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBUser">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBTratamento">
+              <PropertyRef Name="ID_User_PC" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBTratamento_ToTable_1">
+          <End Role="TBUser" Type="Self.TBUser" Multiplicity="1" />
+          <End Role="TBTratamento" Type="Self.TBTratamento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBUser">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBTratamento">
+              <PropertyRef Name="ID_User_FS" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBTratamento_ToTable1">
+          <End Role="TBUser" Type="Self.TBUser" Multiplicity="1" />
+          <End Role="TBTratamento" Type="Self.TBTratamento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBUser">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBTratamento">
+              <PropertyRef Name="ID_User_FS" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="FisioEntities3" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="TBSerie" EntityType="Self.TBSerie" />
+          <EntitySet Name="TBTratamento" EntityType="Self.TBTratamento" />
+          <EntitySet Name="TBUser" EntityType="Self.TBUser" />
+          <AssociationSet Name="FK_TBSerie_To_TBTRatamento" Association="Self.FK_TBSerie_To_TBTRatamento">
+            <End Role="TBTratamento" EntitySet="TBTratamento" />
+            <End Role="TBSerie" EntitySet="TBSerie" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBTratamento_ToTable" Association="Self.FK_TBTratamento_ToTable">
+            <End Role="TBUser" EntitySet="TBUser" />
+            <End Role="TBTratamento" EntitySet="TBTratamento" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBTratamento_ToTable_1" Association="Self.FK_TBTratamento_ToTable_1">
+            <End Role="TBUser" EntitySet="TBUser" />
+            <End Role="TBTratamento" EntitySet="TBTratamento" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBTratamento_ToTable1" Association="Self.FK_TBTratamento_ToTable1">
+            <End Role="TBUser" EntitySet="TBUser" />
+            <End Role="TBTratamento" EntitySet="TBTratamento" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="FisioModelStoreContainer" CdmEntityContainer="FisioEntities3">
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="FisioModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBSerie">
+            <EntityTypeMapping TypeName="FisioModel.TBSerie">
+              <MappingFragment StoreEntitySet="TBSerie">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ID_TR" ColumnName="ID_TR" />
+                <ScalarProperty Name="Tipo_movimento" ColumnName="Tipo_movimento" />
+                <ScalarProperty Name="Articulacao" ColumnName="Articulacao" />
+                <ScalarProperty Name="Posicao" ColumnName="Posicao" />
+                <ScalarProperty Name="Nivel" ColumnName="Nivel" />
+                <ScalarProperty Name="Angulo" ColumnName="Angulo" />
+                <ScalarProperty Name="Qt_acertos" ColumnName="Qt_acertos" />
+                <ScalarProperty Name="Nivel_liberado" ColumnName="Nivel_liberado" />
+                <ScalarProperty Name="Nivel_concluido" ColumnName="Nivel_concluido" />
+                <ScalarProperty Name="Qt_erros" ColumnName="Qt_erros" />
+                <ScalarProperty Name="Score_nivel" ColumnName="Score_nivel" />
+                <ScalarProperty Name="Qt_rep_nivel" ColumnName="Qt_rep_nivel" />
+                <ScalarProperty Name="Observacao" ColumnName="Observacao" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBTratamento">
+            <EntityTypeMapping TypeName="FisioModel.TBTratamento">
+              <MappingFragment StoreEntitySet="TBTratamento">
+                <ScalarProperty Name="ID_TR" ColumnName="ID_TR" />
+                <ScalarProperty Name="ID_User_PC" ColumnName="ID_User_PC" />
+                <ScalarProperty Name="Patologia" ColumnName="Patologia" />
+                <ScalarProperty Name="Objetivo" ColumnName="Objetivo" />
+                <ScalarProperty Name="Observacao" ColumnName="Observacao" />
+                <ScalarProperty Name="ID_User_FS" ColumnName="ID_User_FS" />
+                <ScalarProperty Name="Ativo" ColumnName="Ativo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBUser">
+            <EntityTypeMapping TypeName="FisioModel.TBUser">
+              <MappingFragment StoreEntitySet="TBUser">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Fone" ColumnName="Fone" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Senha" ColumnName="Senha" />
+                <ScalarProperty Name="Ativo" ColumnName="Ativo" />
+                <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

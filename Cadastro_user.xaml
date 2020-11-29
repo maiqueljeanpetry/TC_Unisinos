@@ -1,0 +1,95 @@
+﻿<Window x:Class="Microsoft.Samples.Kinect.SkeletonBasics.User"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Microsoft.Samples.Kinect.SkeletonBasics"
+        mc:Ignorable="d"
+       Title="Cadastro de Usuários" Height="548.953" Width="729.907" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen">
+
+    <Grid Margin="0,0,-4,0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="192*"/>
+            <ColumnDefinition Width="689*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FF9E9C9E" Offset="0.246"/>
+                <GradientStop Color="#FFF0F0F0" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+
+        <Button x:Name="btInserir" Content="Inserir" HorizontalAlignment="Left" Margin="18,262,0,0" VerticalAlignment="Top" Width="75" Click="BtIncluir" RenderTransformOrigin="3.162,3.576" Height="20"/>
+        <Button x:Name="btEditar" Content="Editar" HorizontalAlignment="Left" Margin="98,262,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="-0.77,0.749" IsEnabled="False" Click="BtEditar_Click" Height="20" Grid.ColumnSpan="2"/>
+        <Button x:Name="btExcluir" Content="Excluir" Grid.Column="1" HorizontalAlignment="Left" Margin="100,262,0,0" VerticalAlignment="Top" Width="75" IsEnabled="False" Click="BtExcluir_Click" Height="20"/>
+        <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="1" Margin="0,253,0,0" Stroke="Black" VerticalAlignment="Top" Width="730" Grid.ColumnSpan="2"/>
+        <Label Content="ID" HorizontalAlignment="Left" Margin="36,11,0,0" VerticalAlignment="Top" FontFamily="Arial" FontWeight="Bold" Height="24" Width="22"/>
+        <TextBox x:Name="txtID" HorizontalAlignment="Left" Height="23" Margin="37,12,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="49" FontWeight="Bold" Background="#FFCFCFCF" BorderThickness="1" BorderBrush="Black" FontFamily="Arial" Grid.Column="1">
+            <TextBox.Effect>
+                <BlurEffect Radius="1" RenderingBias="Quality"/>
+            </TextBox.Effect>
+        </TextBox>
+        <Label Content="Nome" HorizontalAlignment="Left" Margin="36,40,0,0" VerticalAlignment="Top" FontFamily="Arial" FontWeight="Bold" Width="50" Height="24"/>
+        <TextBox x:Name="txtNome" HorizontalAlignment="Left" Height="23" Margin="37,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="245" FontWeight="Bold" Background="#FFCFCFCF" BorderThickness="1" BorderBrush="Black" FontFamily="Arial" Grid.Column="1">
+            <TextBox.Effect>
+                <BlurEffect Radius="1" RenderingBias="Quality"/>
+            </TextBox.Effect>
+        </TextBox>
+        <Label Content="Tipo" HorizontalAlignment="Left" Margin="36,68,0,0" VerticalAlignment="Top" FontFamily="Arial" FontWeight="Bold" Width="43" Height="24"/>
+        <TextBox x:Name="txtEmail" HorizontalAlignment="Left" Height="23" Margin="37,97,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="245" FontWeight="Bold" Background="#FFCFCFCF" BorderThickness="1" BorderBrush="Black" FontFamily="Arial" Grid.Column="1">
+            <TextBox.Effect>
+                <BlurEffect Radius="1" RenderingBias="Quality"/>
+            </TextBox.Effect>
+        </TextBox>
+        <ComboBox x:Name="txttipo" Grid.Column="1" HorizontalAlignment="Left" Margin="37,68,0,0" VerticalAlignment="Top" Width="120" SelectedIndex="0" IsReadOnly="True" FontFamily="Arial" Height="23">
+            <ComboBox.Background>
+                <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                    <GradientStop Color="#FFF3F3F3" Offset="0"/>
+                    <GradientStop Color="#FFEBEBEB" Offset="0.5"/>
+                    <GradientStop Color="#FFDDDDDD" Offset="0.5"/>
+                    <GradientStop Color="#FFCFCFCF" Offset="1"/>
+                </LinearGradientBrush>
+            </ComboBox.Background>
+            <ComboBoxItem Name="tipo1">Administrador</ComboBoxItem>
+            <ComboBoxItem Name="tipo2">Fisioterapeuta</ComboBoxItem>
+            <ComboBoxItem Name="tipo3">Paciente</ComboBoxItem>
+
+        </ComboBox>
+        <Label Content="Email" Margin="36,97,0,0" VerticalAlignment="Top" FontFamily="Arial" FontWeight="Bold" HorizontalAlignment="Left" Width="50" Height="27"/>
+        <TextBox x:Name="txtFone" HorizontalAlignment="Left" Height="23" Margin="37,129,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="84" FontWeight="Bold" Background="#FFCFCFCF" BorderThickness="1" BorderBrush="Black" FontFamily="Arial" Grid.Column="1">
+            <TextBox.Effect>
+                <BlurEffect Radius="1" RenderingBias="Quality"/>
+            </TextBox.Effect>
+        </TextBox>
+        <Label Content="Fone" Margin="36,129,0,0" VerticalAlignment="Top" FontFamily="Arial" FontWeight="Bold" HorizontalAlignment="Left" Width="64" Height="27"/>
+        <TextBox x:Name="txtLogin" HorizontalAlignment="Left" Height="23" Margin="37,161,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="65" FontWeight="Bold" Background="#FFCFCFCF" BorderThickness="1" BorderBrush="Black" FontFamily="Arial" Grid.Column="1">
+            <TextBox.Effect>
+                <BlurEffect Radius="1" RenderingBias="Quality"/>
+            </TextBox.Effect>
+        </TextBox>
+        <Label Content="Login" Margin="36,161,0,0" VerticalAlignment="Top" FontFamily="Arial" FontWeight="Bold" HorizontalAlignment="Left" Width="50" Height="27" RenderTransformOrigin="0.488,1.611"/>
+        <Label Content="Senha" Margin="36,193,0,0" VerticalAlignment="Top" FontFamily="Arial" FontWeight="Bold" HorizontalAlignment="Left" Width="64" Height="27"/>
+        <Button x:Name="btSalvar" Content="Salvar" HorizontalAlignment="Left" Margin="178,262,0,0" VerticalAlignment="Top" Width="74" Click="BtSalvar" Grid.ColumnSpan="2" IsEnabled="False" Height="20"/>
+        <Button x:Name="btPesquisar" Content="Pesquisar" Grid.Column="1" HorizontalAlignment="Left" Margin="180,262,0,0" VerticalAlignment="Top" Width="75" Click="BtPesquisar_Click" Height="20"/>
+        <CheckBox x:Name="checkAtivo" Content="Ativo" HorizontalAlignment="Left" Margin="36,233,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.169,0.244" Width="74" Height="15"/>
+        <PasswordBox x:Name="txtSenha" Grid.Column="1" HorizontalAlignment="Left" Margin="37,197,0,0" VerticalAlignment="Top" Width="65" Height="23"/>
+        <DataGrid x:Name="dgDados" HorizontalAlignment="Left" Height="171" Margin="20,319,0,0" VerticalAlignment="Top" Width="632" Grid.ColumnSpan="2" RenderTransformOrigin="0.5,0.5" IsReadOnly="True" SelectionMode="Single" MouseDoubleClick="DgDados_MouseDoubleClick" FontSize="14">
+            <DataGrid.AlternatingRowBackground>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF82E5FB" Offset="0"/>
+                    <GradientStop Color="#FF64CBE2" Offset="1"/>
+                </LinearGradientBrush>
+            </DataGrid.AlternatingRowBackground>
+            <DataGrid.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform AngleY="0.123"/>
+                    <RotateTransform/>
+                    <TranslateTransform Y="0.331"/>
+                </TransformGroup>
+            </DataGrid.RenderTransform>
+        </DataGrid>
+        <Button x:Name="btCancelar" Content="Cancelar" Grid.Column="1" HorizontalAlignment="Left" Margin="260,262,0,0" VerticalAlignment="Top" Width="75" IsEnabled="False" Click="BtCancelar_Click" Height="20"/>
+        <Label x:Name="lbQTDUser" Content="Label" HorizontalAlignment="Left" Margin="20,287,0,0" VerticalAlignment="Top" Height="26" Width="259" Grid.ColumnSpan="2"/>
+    </Grid>
+</Window>

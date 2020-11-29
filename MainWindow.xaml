@@ -1,0 +1,292 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Class="Microsoft.Samples.Kinect.SkeletonBasics.MainWindow"
+        Title="Esqueleto" Height="768" Width="1366" Loaded="WindowLoaded" Closing="WindowClosing" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+
+
+
+
+
+    <Window.Resources>
+        <SolidColorBrush x:Key="MediumGreyBrush" Color="#ff6e6e6e"/>
+        <SolidColorBrush x:Key="KinectPurpleBrush" Color="#ff52318f"/>
+        <SolidColorBrush x:Key="KinectBlueBrush" Color="#ff00BCF2"/>
+        <Style TargetType="{x:Type Image}">
+            <Setter Property="SnapsToDevicePixels" Value="True"/>
+        </Style>
+        <Style TargetType="{x:Type CheckBox}" x:Key="SquareCheckBox" >
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type CheckBox}">
+                        <Grid>
+                            <StackPanel Orientation="Horizontal" Background="Transparent">
+                                <Grid x:Name="SquareCheckBoxChecked">
+                                    <Image x:Name="CheckedNormal" Source="Images\CheckedNormal.png" Stretch="None" HorizontalAlignment="Center"/>
+                                    <Image x:Name="CheckedHover" Source="Images\CheckedHover.png" Stretch="None" HorizontalAlignment="Center" Visibility="Collapsed"/>
+                                </Grid>
+                                <Grid x:Name="SquareCheckBoxUnchecked" Visibility="Collapsed">
+                                    <Image x:Name="UncheckedNormal" Source="Images\UncheckedNormal.png" Stretch="None" HorizontalAlignment="Center"/>
+                                    <Image x:Name="UncheckedHover" Source="Images\UncheckedHover.png" Stretch="None" HorizontalAlignment="Center" Visibility="Collapsed"/>
+                                </Grid>
+                                <TextBlock x:Name="SquareCheckBoxText" Text="{TemplateBinding Content}" TextAlignment="Left"  VerticalAlignment="Center" Foreground="{StaticResource KinectPurpleBrush}" FontSize="15"  Margin="9,0,0,0"/>
+                            </StackPanel>
+
+
+
+
+
+
+                        </Grid>
+
+
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="false">
+                                <Setter Property="Visibility" Value="Collapsed" TargetName="SquareCheckBoxChecked"/>
+                                <Setter Property="Visibility" Value="Visible" TargetName="SquareCheckBoxUnchecked"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Visibility" Value="Collapsed" TargetName="CheckedNormal"/>
+                                <Setter Property="Visibility" Value="Collapsed" TargetName="UncheckedNormal"/>
+                                <Setter Property="Visibility" Value="Visible" TargetName="CheckedHover"/>
+                                <Setter Property="Visibility" Value="Visible" TargetName="UncheckedHover"/>
+                                <Setter Property="Foreground" Value="{StaticResource KinectBlueBrush}" TargetName="SquareCheckBoxText"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid x:Name="layoutGrid" Margin="10 0 10 0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="123*"/>
+            <ColumnDefinition Width="92*"/>
+            <ColumnDefinition Width="236*"/>
+            <ColumnDefinition Width="889*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.Background>
+            <RadialGradientBrush>
+                <GradientStop Color="#FF30D1D8" Offset="0"/>
+                <GradientStop Color="#FF1CC2DC" Offset="0.997"/>
+                <GradientStop Color="#FFF6FBFB"/>
+            </RadialGradientBrush>
+        </Grid.Background>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="34*"/>
+            <RowDefinition Height="301*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <DockPanel Grid.Row="0" Margin="23,10,454,10" Grid.Column="3">
+            <TextBlock DockPanel.Dock="Right" Margin="0 0 -1 0" VerticalAlignment="Bottom" Foreground="{StaticResource MediumGreyBrush}" FontFamily="Segoe UI" FontSize="18"/>
+            <Image Grid.Column="1" Source="Images\Status.png" Stretch="None" HorizontalAlignment="Center" Margin="0 0 0 5"/>
+        </DockPanel>
+
+        <Viewbox Grid.Row="1" Stretch="Uniform" HorizontalAlignment="Center" Margin="9,1,224,1" Grid.RowSpan="3" Grid.Column="2" Grid.ColumnSpan="2">
+            <Image x:Name="ImageC" Width="640" Height="480"/>
+        </Viewbox>
+        <Viewbox Grid.Row="1" Stretch="Uniform" HorizontalAlignment="Center" Margin="9,1,224,1" Grid.RowSpan="3" Grid.Column="2" Grid.ColumnSpan="2">
+            <Image x:Name="ImageE" Width="640" Height="480"/>
+
+        </Viewbox>
+        <StatusBar Grid.Row="3" HorizontalAlignment="Stretch" x:Name="statusBar" VerticalAlignment="Bottom" Background="White" Foreground="{StaticResource MediumGreyBrush}" Height="2" RenderTransformOrigin="0.5,0.5" Grid.ColumnSpan="4">
+            <StatusBar.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform ScaleY="-1"/>
+                    <SkewTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </StatusBar.RenderTransform>
+            <StatusBarItem Padding="0 0 0 10"/>
+            <TextBlock x:Name="statusBarText"><Run Text="Click 'Seated' to change skeletal pipeline type!"/></TextBlock>
+        </StatusBar>
+        <Label Grid.Row="2" Height="63" HorizontalAlignment="Left" Margin="89,303,0,0" x:Name="lblRepetir" VerticalAlignment="Top" Width="329" Content="REPETIR" FontSize="36" FontWeight="Bold" Foreground="#FFCF0000" Visibility="Hidden" Grid.ColumnSpan="3" Grid.Column="1" />
+        <Label Content="Perfeito!" FontSize="36" FontWeight="Bold" Foreground="#FF00B400" Height="60" HorizontalAlignment="Left" Margin="50,258,0,0" x:Name="lblFin" VerticalAlignment="Top" Visibility="Hidden" Width="183" Grid.Row="2" Grid.Column="2" />
+        <Label Content="Mover para esquerda e direita" FontSize="36" FontWeight="Bold" Foreground="#FF00B400" Height="60" HorizontalAlignment="Left" Margin="-610,33,0,0" x:Name="lblInicio" VerticalAlignment="Top" Visibility="Visible" Width="564" Cursor="" Grid.RowSpan="2" />
+        <Label Content="Posicione-se no centro para iniciar!" FontSize="36" FontWeight="Bold" Foreground="#FFFF0432" Height="60" HorizontalAlignment="Left" Margin="133,48,0,0" x:Name="lbposicao" VerticalAlignment="Top" Visibility="Visible" Width="616" Grid.Row="2" Cursor="" RenderTransformOrigin="0.493,-0.117" Grid.Column="2" Grid.ColumnSpan="2" />
+
+        <Canvas x:Name="macas" Margin="48,2,267,58" Width="810" Height="610" Grid.Row="1" Grid.RowSpan="2" Grid.Column="2" Grid.ColumnSpan="2" >
+            <Image Canvas.Left="-620" Canvas.Top="69" Height="116" x:Name="imgHead" Stretch="Uniform" Width="104" Source="/Images/head.png" RenderTransformOrigin="-4.4,0.433" />
+            <Image Canvas.Left="-130" Canvas.Top="-202" Height="1004" x:Name="arvore2" Stretch="Uniform" Width="991" Source="Images/arvore5.png" RenderTransformOrigin="-4.4,0.433" >
+
+                <Image.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="0.052"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Image.RenderTransform>
+            </Image>
+
+            <Image x:Name="maca" Source="Images/maca.png" Height="72" Width="52" RenderTransformOrigin="1.229,0.507" Canvas.Left="200" Canvas.Top="-21" />
+            <Image x:Name="banana" Source="/Images/banana.png" Height="72" Width="80" RenderTransformOrigin="1.229,0.507" Canvas.Top="-21" Canvas.Left="233" />
+            <Image x:Name="cereja" Source="/Images/cereja.png" Height="72" Width="72" RenderTransformOrigin="1.229,0.507" Canvas.Top="-21" Canvas.Left="342" />
+            <Image x:Name="pera" Source="/Images/pera.png" Height="72" Width="72" RenderTransformOrigin="1.229,0.507" Canvas.Left="52" Canvas.Top="-58" />
+            <Image x:Name="macaverde" Source="/Images/macaverde.png" Height="70" Width="75" RenderTransformOrigin="1.229,0.507" Canvas.Left="158" />
+
+            <Image x:Name="certo" Source="/Images/acerto.png" Height="100" Width="100" RenderTransformOrigin="1.229,0.507" Canvas.Left="24" Canvas.Top="260" />
+            <Image x:Name="errado" Source="/Images/erro.png" Height="100" Width="100" RenderTransformOrigin="1.229,0.507" Canvas.Left="24" Canvas.Top="260" />
+            <Label x:Name="lbaviso1" Content="Você atingiu o número de repetições!" Height="66" Canvas.Left="89" Canvas.Top="442" Width="651" Foreground="#FF4608A2" FontWeight="Bold" FontSize="36" Visibility="Hidden"/>
+
+        </Canvas>
+
+        <Canvas x:Name="esqueleto" Margin="48,2,267,58" Width="810" Height="610" Grid.Row="1" Grid.RowSpan="2" Grid.Column="2" Grid.ColumnSpan="2" />
+
+        <Grid HorizontalAlignment="Left" Height="737" VerticalAlignment="Top" Width="265" Grid.RowSpan="3" Grid.ColumnSpan="3">
+            <Grid.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF9BB3B4" Offset="0.007"/>
+                    <GradientStop Color="#FF1C25E4" Offset="1"/>
+                </LinearGradientBrush>
+            </Grid.Background>
+            <Label Content="Paciente:" HorizontalAlignment="Left" VerticalAlignment="Top" Height="28" Width="247" FontWeight="Bold" FontSize="14"/>
+            <TextBox x:Name="txtNome" HorizontalAlignment="Left" Height="28" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="168"  FontSize="18" Margin="88,2,0,0"/>
+            <Label Content="Séries Liberadas:&#xA;" HorizontalAlignment="Left" Margin="1,61,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.263,-0.577" Height="31" FontWeight="Bold" FontSize="14"/>
+            <DataGrid x:Name="dgDados" HorizontalAlignment="Left" Height="137" Margin="2,83,0,0" VerticalAlignment="Top" Width="263" FontSize="16" MouseDoubleClick="DgDados_MouseDoubleClick"/>
+            <Button x:Name="btSeries" Content="Buscar" HorizontalAlignment="Left" Margin="6,33,0,0" VerticalAlignment="Top" Width="75" Click="BtSeries_Click" Height="25" FontWeight="Bold" FontSize="14"/>
+            <Label Content="Articulação:" HorizontalAlignment="Left" VerticalAlignment="Top" Height="43" Width="128" FontWeight="Bold" FontSize="20" Margin="10,360,0,0" RenderTransformOrigin="0.484,-0.239"/>
+            <Label Content="Nível:" HorizontalAlignment="Left" VerticalAlignment="Top" Height="43" Width="108" FontWeight="Bold" FontSize="24" Margin="10,251,0,0"/>
+            <Label Content="Posição:" HorizontalAlignment="Left" VerticalAlignment="Top" Height="43" Width="97" FontWeight="Bold" FontSize="20" Margin="10,418,0,0"/>
+            <Grid HorizontalAlignment="Left" Height="100" Margin="120,10,0,0" VerticalAlignment="Top" Width="100"/>
+            <Label Content="Ângulo:" HorizontalAlignment="Left" VerticalAlignment="Top" Height="43" Width="97" FontWeight="Bold" FontSize="24" Margin="10,304,0,0"/>
+            <Label x:Name="lbnivel" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" Height="43" Width="105" FontWeight="Bold" FontSize="24" Margin="132,251,0,0" Foreground="#FFFF0034"/>
+            <Label x:Name="lbangulo" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" Height="43" Width="97" FontWeight="Bold" FontSize="24" Margin="132,304,0,0"/>
+            <Label x:Name="lbarticulacao" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" Height="43" Width="97" FontWeight="Bold" FontSize="20" Margin="150,360,0,0" RenderTransformOrigin="0.144,0.13"/>
+            <Label x:Name="lbposicao1" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" Height="43" Width="117" FontWeight="Bold" FontSize="20" Margin="133,418,0,0"/>
+            <Button x:Name="btIniciar" Content="Iniciar" HorizontalAlignment="Left" Height="51" Margin="39,576,0,0" VerticalAlignment="Top" Width="181" FontSize="36" FontFamily="Arial Black" Click="BtIniciar_Click"/>
+            <CheckBox Style="{StaticResource SquareCheckBox}" Content="Seated Mode" Height="Auto" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="238,795,-83,-82" x:Name="checkBoxSeatedMode" Checked="CheckBoxSeatedModeChanged" Unchecked="CheckBoxSeatedModeChanged" Width="105" RenderTransformOrigin="0.438,-1.312"/>
+            <Label Content="Repetições:" HorizontalAlignment="Left" VerticalAlignment="Top" Height="43" Width="117" FontWeight="Bold" FontSize="20" Margin="11,476,0,0"/>
+            <Label x:Name="lbrepeticao" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" Height="43" Width="117" FontWeight="Bold" FontSize="20" Margin="133,476,0,0"/>
+            <Button x:Name="btScore" Content="Buscar Pontos" HorizontalAlignment="Left" Height="24" Margin="5,222,0,0" VerticalAlignment="Top" Width="113" FontSize="14" FontWeight="Bold" Click="BtScore_Click" BorderThickness="1"/>
+            <TextBlock x:Name="txtidserie" HorizontalAlignment="Left" Height="16" Margin="101,42,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="89"/>
+            <Button x:Name="btFinalizar" Content="Salvar&#xA;" HorizontalAlignment="Left" Height="45" Margin="40,682,0,0" VerticalAlignment="Top" Width="181" FontSize="30" FontFamily="Arial Black" Click="BtFinalizar_Click"/>
+            <TextBlock x:Name="txtidnivel" HorizontalAlignment="Left" Height="24" Margin="-91,207,0,0" TextWrapping="Wrap" Text="idnivel" VerticalAlignment="Top" Width="63"/>
+            <CheckBox Content="CheckBox" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="238,-76,-49,0"/>
+            <Button x:Name="btCancelar" Content="Cancelar" HorizontalAlignment="Left" Height="45" Margin="39,632,0,0" VerticalAlignment="Top" Width="181" FontFamily="Arial Black" FontSize="30" Click="BtCancelar_Click"/>
+            <Label Content="Acertos:" HorizontalAlignment="Left" VerticalAlignment="Top" Height="43" Width="117" FontWeight="Bold" FontSize="20" Margin="11,528,0,0"/>
+            <Label x:Name="lbacertos" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" Height="43" Width="117" FontWeight="Bold" FontSize="20" Margin="133,528,0,0"/>
+            <Label x:Name="lberro" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" Height="43" Width="117" FontWeight="Bold" FontSize="20" Margin="-145,602,0,0"/>
+            <Label x:Name="lbposicao2" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" Height="43" Width="117" FontWeight="Bold" FontSize="20" Margin="1198,418,-1055,0"/>
+        </Grid>
+        <Grid HorizontalAlignment="Left" Height="739" Margin="657,-1,0,0" VerticalAlignment="Top" Width="232" Grid.RowSpan="4" Grid.Column="3">
+            <Grid.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FFE6D84B" Offset="0"/>
+                    <GradientStop Color="White" Offset="1"/>
+                </LinearGradientBrush>
+            </Grid.Background>
+            <Label x:Name="statcalib" Content="" HorizontalAlignment="Left" Margin="17,31,0,0" VerticalAlignment="Top" Height="30" Width="188" FontSize="20" Foreground="Red" FontFamily="Arial Black" FontWeight="Bold" TextOptions.TextHintingMode="Fixed" HorizontalContentAlignment="Center" FontStretch="Expanded"/>
+            <Label Content="Erros:" HorizontalAlignment="Left" VerticalAlignment="Top" Height="28" Width="82" FontWeight="Bold" FontSize="14" Margin="262,467,-112,0"/>
+            <Button Content="Button" HorizontalAlignment="Left" Margin="259,495,-102,0" VerticalAlignment="Top" Width="75" Click="Button_Click" RenderTransformOrigin="0.56,1.7"/>
+            <TextBox Height="23" HorizontalAlignment="Left" Margin="392,203,-244,0" x:Name="txtGrados" VerticalAlignment="Top" Width="84" IsReadOnly="True" FontSize="14" FontWeight="Bold" />
+            <Label Content="Inclinação Lateral:" Height="28" HorizontalAlignment="Left" Margin="268,198,-156,0" x:Name="label1" VerticalAlignment="Top" FontWeight="Normal" FontSize="14" />
+           
+            <Label Content="Inclinação do tronco em Z Graus:" FontSize="14" FontWeight="Normal" Height="28" HorizontalAlignment="Left" Margin="268,242,-258,0" x:Name="label2" VerticalAlignment="Top" Width="222" />
+            <TextBox Height="28" HorizontalAlignment="Left" Margin="332,553,-194,0" x:Name="maoY" VerticalAlignment="Top" Width="94" IsReadOnly="True" FontSize="14" FontWeight="Bold" RenderTransformOrigin="-2.936,-6.75" />
+            <Label Content="Mao Y" Height="28" HorizontalAlignment="Left" Margin="268,553,-85,0" x:Name="label1_Copy1" VerticalAlignment="Top" FontWeight="Normal" FontSize="14" RenderTransformOrigin="6.12,0.714" />
+            <TextBox Height="28" HorizontalAlignment="Left" Margin="337,673,-159,0" x:Name="macax" VerticalAlignment="Top" Width="54" IsReadOnly="True" FontSize="14" FontWeight="Bold" />
+            <Label Content="maca x" Height="28" HorizontalAlignment="Left" Margin="271,673,-92,0" x:Name="label1_Copy2" VerticalAlignment="Top" FontWeight="Normal" FontSize="14" RenderTransformOrigin="6.12,0.714" />
+            <TextBox Height="28" HorizontalAlignment="Left" Margin="337,706,-159,0" x:Name="macay" VerticalAlignment="Top" Width="54" IsReadOnly="True" FontSize="14" FontWeight="Bold" RenderTransformOrigin="1.509,0.518" />
+            <Label Content="maca y" Height="28" HorizontalAlignment="Left" Margin="269,706,-90,0" x:Name="label1_Copy3" VerticalAlignment="Top" FontWeight="Normal" FontSize="14" RenderTransformOrigin="6.12,0.714" />
+            <TextBox Height="28" HorizontalAlignment="Left" Margin="275,631,-97,0" x:Name="pointx" VerticalAlignment="Top" Width="54" IsReadOnly="True" FontSize="14" FontWeight="Bold" />
+            <TextBox Height="28" HorizontalAlignment="Left" Margin="366,631,-188,0" x:Name="pointy" VerticalAlignment="Top" Width="54" IsReadOnly="True" FontSize="14" FontWeight="Bold" />
+            <TextBox x:Name="txtacerto" HorizontalAlignment="Left" Height="23" Margin="268,168,-156,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"  FontSize="14"/>
+            <TextBox x:Name="txtdistancia" HorizontalAlignment="Left" Height="24" Margin="337,443,-188,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="83"  FontSize="14"/>
+            <TextBox x:Name="tdmao" HorizontalAlignment="Left" Height="24" Margin="337,371,-217,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="112"  FontSize="14"/>
+            <TextBox x:Name="tdombro" HorizontalAlignment="Left" Height="24" Margin="342,331,-217,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="107"  FontSize="14"/>
+            <Label Content="Ombro&#xA;" HorizontalAlignment="Left" Margin="259,331,-102,0" VerticalAlignment="Top" Height="28" Width="75" FontWeight="Bold" FontSize="14"/>
+            <Label Content="Mão&#xA;&#xA;" HorizontalAlignment="Left" Margin="262,363,-105,0" VerticalAlignment="Top" Height="28" Width="75" FontWeight="Bold" FontSize="14"/>
+            <TextBox Height="28" HorizontalAlignment="Left" Margin="326,520,-188,0" x:Name="txtombro" VerticalAlignment="Top" Width="94" IsReadOnly="True" FontSize="14" FontWeight="Bold" RenderTransformOrigin="-2.936,-6.75" />
+            <Label Content="Ombro" Height="28" HorizontalAlignment="Left" Margin="266,520,-88,0" x:Name="label1_Copy4" VerticalAlignment="Top" FontWeight="Normal" FontSize="14" RenderTransformOrigin="6.12,0.714" />
+            <Label Content="ang x" HorizontalAlignment="Left" Margin="-744,-174,0,0" VerticalAlignment="Top" Height="28" Width="76" FontWeight="Bold" FontSize="14"/>
+            <Label Content="ang y&#xA;" HorizontalAlignment="Left" Margin="-758,-130,0,0" VerticalAlignment="Top" Height="28" Width="74" FontWeight="Bold" FontSize="14" RenderTransformOrigin="0.467,1.732"/>
+            <TextBox x:Name="angx" HorizontalAlignment="Left" Height="24" Margin="-692,-171,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="112"  FontSize="14"/>
+            <TextBox x:Name="angy" HorizontalAlignment="Left" Height="24" Margin="-708,-124,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="112"  FontSize="14"/>
+            <TextBlock x:Name="AngleRight" HorizontalAlignment="Left" Margin="1082,151,-982,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="10" FontFamily="Segoe Print" Foreground="#0404B4" Width="132" ><Run Language="es-co" Text="0"/></TextBlock>
+            <TextBox x:Name="txtang" HorizontalAlignment="Left" Height="23" Margin="317,409,-205,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"  FontSize="14" RenderTransformOrigin="0.5,0.5"/>
+            <Label Content="dst" HorizontalAlignment="Left" VerticalAlignment="Top" Height="28" Width="82" FontWeight="Bold" FontSize="14" Margin="266,437,-116,0"/>
+            <Label Content="ang&#xA;ang" HorizontalAlignment="Left" VerticalAlignment="Top" Height="26" Width="75" FontWeight="Bold" FontSize="14" Margin="266,406,-109,0"/>
+            <TextBox Height="22" HorizontalAlignment="Left" Margin="-860,-124,0,0" x:Name="txtpoint" VerticalAlignment="Top" Width="48" IsReadOnly="True" FontSize="14" FontWeight="Bold" />
+            <Border BorderThickness="3" HorizontalAlignment="Left" Height="33" Margin="14,30,0,0" VerticalAlignment="Top" Width="209" CornerRadius="13">
+                <Border.BorderBrush>
+                    <RadialGradientBrush>
+                        <GradientStop Color="#FF2402F9" Offset="0"/>
+                        <GradientStop Color="#FF282F7E" Offset="1"/>
+                    </RadialGradientBrush>
+                </Border.BorderBrush>
+            </Border>
+            <Label Content="STATUS SENSOR" HorizontalAlignment="Left" Margin="37,5,-30,0" VerticalAlignment="Top" Height="28" Width="225" FontSize="18" Foreground="#FF2402F9" VerticalContentAlignment="Center" FontWeight="Bold" FontFamily="Microsoft YaHei UI"/>
+            <Label Content="MEUS PONTOS" HorizontalAlignment="Left" Margin="37,70,0,0" VerticalAlignment="Top" Height="28" Width="155" FontSize="18" Foreground="#FF2402F9" VerticalContentAlignment="Center" FontWeight="Bold" FontFamily="Microsoft YaHei UI"/>
+            <Border BorderThickness="3" HorizontalAlignment="Left" Height="33" Margin="14,97,0,0" VerticalAlignment="Top" Width="209" CornerRadius="13">
+                <Border.BorderBrush>
+                    <RadialGradientBrush>
+                        <GradientStop Color="#FF2402F9" Offset="0"/>
+                        <GradientStop Color="#FF282F7E" Offset="1"/>
+                    </RadialGradientBrush>
+                </Border.BorderBrush>
+            </Border>
+            <Label x:Name="stpontos" Content="" HorizontalAlignment="Left" Margin="26,97,0,0" VerticalAlignment="Top" Height="30" Width="188" FontSize="20" Foreground="Red" FontFamily="Arial Black" FontWeight="Bold" TextOptions.TextHintingMode="Fixed" HorizontalContentAlignment="Center" FontStretch="Expanded"/>
+            <Image x:Name="trofeu" Source="Images/trofeu.png" Height="72" RenderTransformOrigin="1.229,0.507" Canvas.Top="-33" Canvas.Left="275" Margin="175,66,4,601" />
+
+            <Label Content="PONTOS NÍVEL" HorizontalAlignment="Left" Margin="39,163,0,0" VerticalAlignment="Top" Height="28" Width="155" FontSize="18" Foreground="#FF2402F9" VerticalContentAlignment="Center" FontWeight="Bold" FontFamily="Microsoft YaHei UI"/>
+            <Label x:Name="stpontos_nivel" Content="" HorizontalAlignment="Left" Margin="26,194,0,0" VerticalAlignment="Top" Height="30" Width="188" FontSize="20" Foreground="Red" FontFamily="Arial Black" FontWeight="Bold" TextOptions.TextHintingMode="Fixed" HorizontalContentAlignment="Center" FontStretch="Expanded"/>
+            <Border BorderThickness="3" HorizontalAlignment="Left" Height="33" Margin="14,191,0,0" VerticalAlignment="Top" Width="209" CornerRadius="13">
+                <Border.BorderBrush>
+                    <RadialGradientBrush>
+                        <GradientStop Color="#FF2402F9" Offset="0"/>
+                        <GradientStop Color="#FF282F7E" Offset="1"/>
+                    </RadialGradientBrush>
+                </Border.BorderBrush>
+            </Border>
+            <Label Content="ACERTOS" HorizontalAlignment="Left" Margin="67,245,0,0" VerticalAlignment="Top" Height="28" Width="112" FontSize="18" Foreground="#FF2402F9" VerticalContentAlignment="Center" FontWeight="Bold" FontFamily="Microsoft YaHei UI"/>
+            <Border BorderThickness="3" HorizontalAlignment="Left" Height="33" Margin="14,273,0,0" VerticalAlignment="Top" Width="209" CornerRadius="13">
+                <Border.BorderBrush>
+                    <RadialGradientBrush>
+                        <GradientStop Color="#FF2402F9" Offset="0"/>
+                        <GradientStop Color="#FF282F7E" Offset="1"/>
+                    </RadialGradientBrush>
+                </Border.BorderBrush>
+            </Border>
+            <Label x:Name="stacertos" Content="" HorizontalAlignment="Left" Margin="26,275,0,0" VerticalAlignment="Top" Height="30" Width="188" FontSize="20" Foreground="Red" FontFamily="Arial Black" FontWeight="Bold" TextOptions.TextHintingMode="Fixed" HorizontalContentAlignment="Center" FontStretch="Expanded"/>
+            <Image x:Name="star" Source="Images/star.png" RenderTransformOrigin="1.229,0.507" Canvas.Top="-33" Canvas.Left="275" Margin="175,164,-1,515" />
+            <TextBox x:Name="angx_Copy1" HorizontalAlignment="Left" Height="24" Margin="310,5,-190,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="112"  FontSize="14"/>
+            <TextBox x:Name="angy_Copy1" HorizontalAlignment="Left" Height="24" Margin="310,66,-190,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="112"  FontSize="14"/>
+            <TextBox x:Name="lbang" HorizontalAlignment="Left" Height="24" Margin="-1237,242,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="112"  FontSize="14"/>
+            <TextBox x:Name="angx_Copy" HorizontalAlignment="Left" Height="24" Margin="-472,-81,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="112"  FontSize="14" RenderTransformOrigin="1.116,-0.417"/>
+            <TextBox x:Name="angx_Copy2" HorizontalAlignment="Left" Height="24" Margin="-612,-81,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="112"  FontSize="14" RenderTransformOrigin="2.902,-8.167"/>
+            <TextBox x:Name="angx_Copy3" HorizontalAlignment="Left" Height="24" Margin="-312,-81,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="112"  FontSize="14"/>
+            <Label Content="OBJETIVO" HorizontalAlignment="Left" Margin="64,322,0,0" VerticalAlignment="Top" Height="33" Width="115" FontSize="18" Foreground="#FFFF321E" VerticalContentAlignment="Center" FontWeight="Bold" FontFamily="Microsoft YaHei UI" RenderTransformOrigin="0.536,1"/>
+            <Label Content="Mantenha seus&#xA;braços junto ao &#xA;corpo.&#xA;&#xA;Movimente seu &#xA;braço ESQUERDO&#xA;até atingir&#xA;a MAÇA VERDE.&#xA;&#xA;Quando atingir &#xA;a MAÇA, volte&#xA;seu braço até a &#xA;posição inicial.&#xA;" HorizontalAlignment="Left" Margin="11,352,0,0" VerticalAlignment="Top" Height="370" Width="212" FontSize="22" Foreground="#FFD1FF00" VerticalContentAlignment="Center" FontWeight="Bold" FontFamily="Microsoft YaHei UI" RenderTransformOrigin="0.5,0.5" Background="#FF1345F1"/>
+            <Border BorderThickness="3" HorizontalAlignment="Left" Height="376" Margin="8,349,0,0" VerticalAlignment="Top" Width="216" CornerRadius="6">
+                <Border.Background>
+                    <ImageBrush/>
+                </Border.Background>
+                <Border.BorderBrush>
+                    <RadialGradientBrush>
+                        <GradientStop Color="#FF2402F9" Offset="0"/>
+                        <GradientStop Color="#FF282F7E" Offset="1"/>
+                    </RadialGradientBrush>
+                </Border.BorderBrush>
+                <Label x:Name="lbposicao3" Content="" HorizontalAlignment="Left" Height="35" Margin="425,140,-341,0" VerticalAlignment="Top" Width="126" FontFamily="Microsoft YaHei UI" FontSize="22" Background="#FF1345F1" Foreground="#FFD1FF00" FontWeight="Bold"/>
+            </Border>
+        </Grid>
+        <TextBox x:Name="status" HorizontalAlignment="Left" Height="23" Margin="1029,352,-200,0" Grid.Row="2" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="60" Grid.Column="3"/>
+        <TextBox Grid.Row="2" Height="26" HorizontalAlignment="Left" Margin="990,460,-177,0" x:Name="maox" VerticalAlignment="Top" Width="76" IsReadOnly="True" FontSize="14" FontWeight="Bold" Grid.Column="3" />
+        <Label Content="Mao X" Grid.Row="2" Height="28" HorizontalAlignment="Left" Margin="924,458,-85,0" x:Name="label1_Copy" VerticalAlignment="Top" FontWeight="Normal" FontSize="14" Grid.Column="3" RenderTransformOrigin="7.19,0.893" />
+        <Button Content="Repetir" Grid.Row="4" Height="20" HorizontalAlignment="Left" Margin="142,58,0,-78" x:Name="btnRepetir" VerticalAlignment="Top" Width="76" FontSize="15" FontWeight="Normal" Click="btnRepetir_Click" Grid.Column="2" />
+        <Button x:Name="BBuscaID" Content="Button" HorizontalAlignment="Left" Height="30" Margin="89,33,0,0" VerticalAlignment="Top" Width="33" Click="BBuscaID_Click" Visibility="Hidden" Grid.ColumnSpan="2" Grid.Column="1"/>
+        <Image x:Name="certo_Copy" Source="Images/acerto.png" RenderTransformOrigin="1.229,0.507" Margin="836,104,10,438" Grid.Row="2" Grid.Column="3" />
+        <Label Height="63" HorizontalAlignment="Left" Margin="142,159,0,0" x:Name="lblaviso" VerticalAlignment="Top" Width="670" Content="" FontSize="36" FontWeight="Bold" Foreground="#FF210CF9" Visibility="Visible" Grid.Column="2" Grid.Row="2" Grid.ColumnSpan="2" />
+
+
+
+
+    </Grid>
+</Window>

@@ -1,0 +1,94 @@
+﻿<Window x:Class="Microsoft.Samples.Kinect.SkeletonBasics.Tratamento"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Microsoft.Samples.Kinect.SkeletonBasics"
+        mc:Ignorable="d"
+        Title="Tratamento de Paciente" Height="513.779" Width="778.513" WindowStartupLocation="CenterScreen">
+    <Grid Margin="0,0,-8,0">
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FF9E9C9E" Offset="0.246"/>
+                <GradientStop Color="WhiteSmoke" Offset="0.96"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="93*"/>
+            <ColumnDefinition Width="292*"/>
+            <ColumnDefinition Width="173*"/>
+            <ColumnDefinition Width="204*"/>
+            <ColumnDefinition Width="17*"/>
+        </Grid.ColumnDefinitions>
+        <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="2" Margin="10,280,0,0" Stroke="Black" VerticalAlignment="Top" Width="519" Grid.ColumnSpan="3"/>
+        <Label Content="ID" HorizontalAlignment="Left" Margin="36,27,0,0" VerticalAlignment="Top" FontFamily="Arial" FontWeight="Bold"/>
+        <TextBox x:Name="txtID" HorizontalAlignment="Left" Height="23" Margin="97,27,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="49" FontWeight="Bold" Background="#FFCFCFCF" BorderThickness="1" BorderBrush="Black" FontFamily="Arial" Grid.Column="1">
+            <TextBox.Effect>
+                <BlurEffect Radius="1" RenderingBias="Quality"/>
+            </TextBox.Effect>
+        </TextBox>
+        <TextBox x:Name="txtObjetivo" HorizontalAlignment="Left" Height="23" Margin="98,181,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="245" FontWeight="Bold" Background="#FFCFCFCF" BorderThickness="1" BorderBrush="Black" FontFamily="Arial" Grid.Column="1" Grid.ColumnSpan="2">
+            <TextBox.Effect>
+                <BlurEffect Radius="1" RenderingBias="Quality"/>
+            </TextBox.Effect>
+        </TextBox>
+        <Label Content="Objetivo " HorizontalAlignment="Left" Margin="37,181,0,0" VerticalAlignment="Top" FontFamily="Arial" FontWeight="Bold" Width="94" Grid.ColumnSpan="2"/>
+        <TextBox x:Name="txtDtnasc" HorizontalAlignment="Left" Height="23" Margin="98,117,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="71" FontWeight="Bold" Background="#FFCFCFCF" BorderThickness="1" BorderBrush="Black" FontFamily="Arial" Grid.Column="1">
+            <TextBox.Effect>
+                <BlurEffect Radius="1" RenderingBias="Quality"/>
+            </TextBox.Effect>
+        </TextBox>
+        <Label Content="Data Nascimento" Margin="37,113,0,0" VerticalAlignment="Top" FontFamily="Arial" FontWeight="Bold" HorizontalAlignment="Left" Width="108" Height="27" Grid.ColumnSpan="2"/>
+        <Label Content="Observação" Margin="37,221,0,0" VerticalAlignment="Top" FontFamily="Arial" FontWeight="Bold" HorizontalAlignment="Left" Width="94" Height="27" Grid.ColumnSpan="2"/>
+
+        <Label Content="Tipo de Patologia&#xD;&#xA;" Margin="37,149,0,0" VerticalAlignment="Top" FontFamily="Arial" FontWeight="Bold" HorizontalAlignment="Left" Width="113" Height="27" Grid.ColumnSpan="2"/>
+        <TextBox x:Name="txtPatologia" HorizontalAlignment="Left" Height="23" Margin="98,149,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="245" FontWeight="Bold" Background="#FFCFCFCF" BorderThickness="1" BorderBrush="Black" FontFamily="Arial" Grid.Column="1" Grid.ColumnSpan="2">
+            <TextBox.Effect>
+                <BlurEffect Radius="1" RenderingBias="Quality"/>
+            </TextBox.Effect>
+        </TextBox>
+
+        <TextBox x:Name="txtObs" HorizontalAlignment="Left" Height="37" Margin="98,221,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="245" FontWeight="Bold" Background="#FFCFCFCF" BorderThickness="1" BorderBrush="Black" FontFamily="Arial" Grid.Column="1" Grid.ColumnSpan="2">
+            <TextBox.Effect>
+                <BlurEffect Radius="1" RenderingBias="Quality"/>
+            </TextBox.Effect>
+        </TextBox>
+        <Label Content="Fisioterapeuta&#xA;" HorizontalAlignment="Left" Margin="36,56,0,0" VerticalAlignment="Top" FontFamily="Arial" FontWeight="Bold" RenderTransformOrigin="0.545,-2.292" Grid.ColumnSpan="2"/>
+        <Button x:Name="btInserir" Content="Inserir" HorizontalAlignment="Left" Margin="26,287,0,0" VerticalAlignment="Top" Width="75" Click="BtIncluir" RenderTransformOrigin="3.162,3.576" Grid.ColumnSpan="2"/>
+        <Button x:Name="btEditar" Content="Editar" HorizontalAlignment="Left" Margin="14,287,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="-0.77,0.749" IsEnabled="False" Click="BtEditar_Click" Grid.Column="1"/>
+        <Button x:Name="btExcluir" Content="Excluir" Grid.Column="1" HorizontalAlignment="Left" Margin="174,287,0,0" VerticalAlignment="Top" Width="75" IsEnabled="False" Click="BtExcluir_Click"/>
+        <Button x:Name="btSalvar" Content="Salvar" HorizontalAlignment="Left" Margin="95,287,0,0" VerticalAlignment="Top" Width="74" Click="BtSalvar" IsEnabled="False" Grid.Column="1" RenderTransformOrigin="-0.027,0.7"/>
+        <Button x:Name="btPesquisar" Content="Pesquisar" Grid.Column="1" HorizontalAlignment="Left" Margin="254,287,0,0" VerticalAlignment="Top" Width="75" Click="BtPesquisar_Click" Grid.ColumnSpan="2"/>
+        <Button x:Name="btCancelar" Content="Cancelar" Grid.Column="2" HorizontalAlignment="Left" Margin="43,287,0,0" VerticalAlignment="Top" Width="75" IsEnabled="False" Click="BtCancelar_Click" RenderTransformOrigin="0.213,0.35"/>
+        <Label Content="Paciente&#xA;" HorizontalAlignment="Left" Margin="36,84,0,0" VerticalAlignment="Top" FontFamily="Arial" FontWeight="Bold" RenderTransformOrigin="0.545,-2.292" Grid.ColumnSpan="2"/>
+        <TextBox x:Name="txtFisio" HorizontalAlignment="Left" Height="23" Margin="151,56,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="192" FontWeight="Bold" Background="#FFCFCFCF" BorderThickness="1" BorderBrush="Black" FontFamily="Arial" Grid.Column="1" Grid.ColumnSpan="2">
+            <TextBox.Effect>
+                <BlurEffect Radius="1" RenderingBias="Quality"/>
+            </TextBox.Effect>
+        </TextBox>
+        <TextBox x:Name="txtPaciente" HorizontalAlignment="Left" Height="23" Margin="151,84,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="192" FontWeight="Bold" Background="#FFCFCFCF" BorderThickness="1" BorderBrush="Black" FontFamily="Arial" Grid.Column="1" Grid.ColumnSpan="2">
+            <TextBox.Effect>
+                <BlurEffect Radius="1" RenderingBias="Quality"/>
+            </TextBox.Effect>
+        </TextBox>
+        <DataGrid x:Name="dgDados" Grid.ColumnSpan="4" HorizontalAlignment="Left" Height="119" Margin="26,341,0,0" VerticalAlignment="Top" Width="691" MouseDoubleClick="DgDados_MouseDoubleClick"/>
+        <Button x:Name="btBuscaFisio" Content="Busca Fisio&#xD;&#xA;" Grid.Column="2" HorizontalAlignment="Left" Margin="63,57,0,0" VerticalAlignment="Top" Width="87" Height="22" Click="BtBuscaFisio_Click"/>
+        <Button x:Name="btBuscaPaciente" Content="Busca Paciente" Grid.Column="2" HorizontalAlignment="Left" Margin="64,85,0,0" VerticalAlignment="Top" Width="87" Height="22" Click="BtBuscaPaciente_Click" RenderTransformOrigin="-0.851,0.864"/>
+        <CheckBox x:Name="checkAtivo" Content="Ativo" Margin="37,263,55,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+        <TextBox x:Name="txtID_Fisio" HorizontalAlignment="Left" Height="22" Margin="98,55,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="49" FontWeight="Bold" Background="#FFCFCFCF" BorderThickness="1" BorderBrush="Black" FontFamily="Arial" Grid.Column="1" IsReadOnly="True">
+            <TextBox.Effect>
+                <BlurEffect Radius="1" RenderingBias="Quality"/>
+            </TextBox.Effect>
+        </TextBox>
+        <TextBox x:Name="txtID_Paciente" HorizontalAlignment="Left" Height="22" Margin="97,84,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="49" FontWeight="Bold" Background="#FFCFCFCF" BorderThickness="1" BorderBrush="Black" FontFamily="Arial" Grid.Column="1" IsReadOnly="True">
+            <TextBox.Effect>
+                <BlurEffect Radius="1" RenderingBias="Quality"/>
+            </TextBox.Effect>
+        </TextBox>
+        <WrapPanel x:Name="wpanel" Grid.Column="3" HorizontalAlignment="Left" Height="100" Margin="0,53,0,0" VerticalAlignment="Top" Width="143" Background="White">
+            <DataGrid x:Name="dgFisio" HorizontalAlignment="Left" Height="102" VerticalAlignment="Top" Width="142" MouseDoubleClick="DgFisio_MouseDoubleClick"/>
+        </WrapPanel>
+        <Button x:Name="btSeries" Content="Séries" Grid.Column="3" HorizontalAlignment="Left" Margin="84,316,0,0" VerticalAlignment="Top" Width="75" IsEnabled="False" RenderTransformOrigin="0.213,0.35" Click="BtSeries_Click_1"/>
+
+    </Grid>
+</Window>
